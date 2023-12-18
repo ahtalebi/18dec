@@ -6,6 +6,12 @@ output: html_document
 ---
 
 ```{r}
+library(dplyr)
+library(shiny)
+```
+
+
+```{r}
 data <- read.csv('/home/amir/Documents/3rd_semester/WorkshopII/Burno/project/tvmarketing.csv')
 head(data)
 ```
