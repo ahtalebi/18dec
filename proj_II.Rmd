@@ -1,0 +1,69 @@
+---
+title: "Linear_R"
+author: "Amir_TALEBI"
+date: "2023-12-18"
+output: html_document
+---
+
+```{r}
+data <- read.csv('/home/amir/Documents/3rd_semester/WorkshopII/Burno/project/tvmarketing.csv')
+head(data)
+```
+
+
+```{r}
+plot(data$TV, data$Sales, main="Scatter Plot of x vs y", xlab="x", ylab="y")
+
+```
+```{r}
+X <- data$TV
+y = data$Sales
+
+set.seed(123)  # Setting seed for reproducibility
+
+# proportion for the training set (e.g., 0.7 for 70%)
+train_prop <- 0.7
+
+# set an index for the training set
+train_index <- sample(seq_len(nrow(data)), size = round(train_prop * nrow(data)))
+
+X_train <- data[train_index, "TV"]
+X_test <- data[-train_index, "TV"]
+y_train <- data[train_index, "Sales"]
+y_test <- data[-train_index, "Sales"]
+
+```
+
+```{r}
+
+cat("Shape of X_train:", length(X_train), "\n")
+cat("Shape of y_train:", length(y_train), "\n")
+
+cat("Shape of X_test:", length(X_test), "\n")
+cat("Shape of y_test:", length(y_test), "\n")
+```
+
+```{r}
+
+lm_model <- lm(y_train ~ X_train)
+summary(lm_model)
+
+```
+
+```{r}
+
+y_pred <- predict(lm_model, newdata = data.frame(X_train = X_test))
+
+# Mean Squared Error (MSE) on the test data
+mse <- mean((y_test - y_pred)^2)
+cat("Mean Squared Error on the test data:", mse, "\n")
+
+plot(X_test, y_test, col = "blue", pch = 16, xlab = "X_test", ylab = "y_test", main = "Linear Regression Predictions on Test Data")
+points(X_test, y_pred, col = "red", pch = 16)
+
+# legend
+legend("topright", legend = c("Actual", "Predicted"), col = c("blue", "red"), pch = 16)
+
+```
+
+
