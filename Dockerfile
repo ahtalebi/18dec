@@ -46,8 +46,6 @@ COPY tvmarketing.csv /home/LinReg/tvmarketing.csv
 
 RUN R -e "setwd('/home/LinReg');renv::init();renv::restore()"
 
-RUN cd /home/LinReg  && R -e "rmarkdown::render('/home/LinReg/proj_II.Rmd', output_file = '/home/LinReg/shared_folder/proj_II.html')"
-
-#RUN cd /home/LinReg  && R -e \"rmarkdown::render('/home/LinReg/proj_II.Rmd', output_dir = '/home/LinReg/shared_folder', output_file = 'proj_II.html')
+RUN cd /home/LinReg  && R -e "rmarkdown::render('/home/LinReg/proj_II.Rmd', output_file = '/home/LinReg/pipeline_output/proj_II.html')"
 
 CMD mv  /home/LinReg/pipeline_output/*  /home/LinReg/shared_folder/
